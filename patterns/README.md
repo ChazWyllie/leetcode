@@ -60,21 +60,18 @@ The magic is:
 at most N moves for l and N moves for r → O(N)
 
 The 4 Sliding Window Patterns You Will See on LeetCode
-1️⃣ Fixed window size
 
-➡️ Max sum of size k, average, count of windows, etc.
+1️⃣ Fixed window size
+- Max sum of size k, average, count of windows, etc.
 
 2️⃣ Longest substring / subarray under a constraint
-
-➡️ “Longest substring with at most K distinct chars”
-➡️ “Longest substring without repeat”
+- “Longest substring with at most K distinct chars”
+- “Longest substring without repeat”
 
 3️⃣ Smallest substring / subarray that meets requirement
-
-➡️ “Minimum window substring”
-➡️ “Smallest subarray with sum ≥ target”
+- “Minimum window substring”
+- “Smallest subarray with sum ≥ target”
 
 4️⃣ Variable constraints using frequency maps
-
-➡️ Find permutation, anagram, or pattern inside a window
-➡️ Check if window matches target frequency
+- Find permutation, anagram, or pattern inside a window
+- Check if window matches target frequency
