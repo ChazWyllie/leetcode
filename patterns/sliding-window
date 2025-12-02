@@ -1,0 +1,172 @@
+🌟 What Is the Sliding Window Pattern?
+
+A sliding window is a technique used to process contiguous ranges inside arrays or strings efficiently.
+
+Instead of recomputing the work for every subarray from scratch (which takes O(n·k)), sliding window lets you reuse previous computation so the time drops to O(n).
+
+🧠 When Do We Use Sliding Window?
+
+Look for these signals:
+
+✔️ The problem involves subarrays or substrings
+
+→ “Find longest substring…”,
+→ “Count subarrays…”
+→ “Maximum sum of size k…”
+
+✔️ The answer is based on a contiguous region
+
+If order matters and you can’t rearrange, it’s a strong hint.
+
+✔️ You add/remove elements as the window expands/contracts
+
+Meaning you can update state in O(1) time.
+
+⚙️ Two Types of Sliding Window
+🔹 1. Fixed-size window
+
+Window size is always k, and it moves one step at a time.
+
+👉 Used when the problem explicitly says “size k”.
+
+Example problem:
+
+Max sum subarray of size k
+
+Template:
+l = 0
+curr = 0
+for r in range(len(nums)):
+    curr += nums[r]
+
+    if r - l + 1 == k:
+        # process window
+        answer = max(answer, curr)
+        curr -= nums[l]
+        l += 1
+
+🔹 2. Dynamic window
+
+Window size grows until it violates a rule, then shrinks.
+
+👉 Used for problems involving:
+
+Longest substring with ≤ K distinct characters
+
+Smallest substring that contains all characters of target
+
+Longest substring with no repeats
+
+Template:
+l = 0
+window = {}  # frequency map
+
+for r in range(len(s)):
+    window[s[r]] = window.get(s[r], 0) + 1
+
+    while condition_is_violated:
+        window[s[l]] -= 1
+        if window[s[l]] == 0:
+            del window[s[l]]
+        l += 1
+
+    # valid window here
+    result = max(result, r - l + 1)
+
+🎯 Core Idea of Sliding Window
+
+Think of a window [l, r].
+
+Moving the right pointer:
+
+Adds a new element to the window
+
+Expands the window
+
+Increases sum/count/frequency
+
+Moving the left pointer:
+
+Removes an element
+
+Shrinks the window
+
+Helps restore a constraint
+
+The magic is:
+at most N moves for l and N moves for r → O(N)
+
+📘 Example #1 (Classic)
+Longest Substring Without Repeating Characters
+
+🧠 Dynamic window
+Keep shrinking when duplicates appear.
+
+Code:
+def lengthOfLongestSubstring(s):
+    seen = set()
+    l = 0
+    best = 0
+
+    for r in range(len(s)):
+        while s[r] in seen:
+            seen.remove(s[l])
+            l += 1
+        
+        seen.add(s[r])
+        best = max(best, r - l + 1)
+
+    return best
+
+📘 Example #2
+Minimum Window Substring (hard)
+
+Dynamic window with counts.
+
+Steps:
+
+Add characters until valid
+
+Shrink from left to find minimum
+
+Repeat
+
+📘 Example #3
+Max Sum of Subarray Size K
+
+Fixed window.
+
+def maxSum(nums, k):
+    l = 0
+    curr = 0
+    best = float('-inf')
+
+    for r in range(len(nums)):
+        curr += nums[r]
+
+        if r - l + 1 == k:
+            best = max(best, curr)
+            curr -= nums[l]
+            l += 1
+
+    return best
+
+👑 The 4 Sliding Window Patterns You Will See on LeetCode
+1️⃣ Fixed window size
+
+➡️ Max sum of size k, average, count of windows, etc.
+
+2️⃣ Longest substring / subarray under a constraint
+
+➡️ “Longest substring with at most K distinct chars”
+➡️ “Longest substring without repeat”
+
+3️⃣ Smallest substring / subarray that meets requirement
+
+➡️ “Minimum window substring”
+➡️ “Smallest subarray with sum ≥ target”
+
+4️⃣ Variable constraints using frequency maps
+
+➡️ Find permutation, anagram, or pattern inside a window
+➡️ Check if window matches target frequency
